@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pie using Div</title>
+	<style>
+		.pie{
+/* 			position: absolute;
+			 */			display: inline-block;
+			width: 200px;
+			height: 200px;
+			background:linear-gradient(to left,rgba(200, 54, 54, 1) 50%,transparent 50%);
+			border-top-right-radius: 50%;
+			border-bottom-right-radius: 50%;
+		}
+	.pie div{
+	display: inline-block;
+	width: 200px;
+	height: 200px;
+	background:linear-gradient(to right,rgba(200, 200, 54, 1) 50%,transparent 50%);
+	border-top-left-radius: 50%;
+	border-bottom-left-radius: 50%;
+}
+ 
+		.pie2{
+						display: inline-block;
+			width: 200px;
+			height: 200px;
+			-webkit-mask-image: -webkit-gradient(
+    linear, left top, right bottom, 
+    color-stop(0.00,  rgba(0,0,0,1)),
+    color-stop(0.35,  rgba(0,0,0,1)),
+    color-stop(0.50,  rgba(0,0,0,0)),
+    color-stop(0.65,  rgba(0,0,0,0)),
+    color-stop(1.00,  rgba(0,0,0,0)));
+
+			border-top-right-radius: 50%;
+			border-bottom-right-radius: 50%;
+
+		}
+	</style>
+</head>
+<body>
+    <div class="pie-container">
+    <div class="pie" data-color="red" data-value="10"><div></div></div>
+    <div class="pie" data-color="yellow"  data-value="30"><div></div></div>
+    <div class="pie" data-color="green"  data-value="45"><div></div></div>
+    <div class="pie" data-color="blue" data-value="5"><div></div></div>
+    <div class="pie" data-color="purple"  data-value="10"><div></div></div>
+    </div>
+
+<div class="pie2"></div>
+</body>
+
+<script type="text/javascript">
+	var pieData = document.querySelectorAll('.pie');
+	var auxPie = document.querySelectorAll('.pie div')
+var pieArray = {};
+var totalRot=0;
+z=500;
+for (var it = 0; it < pieData.length; it++) {
+    var col = pieData[it].getAttribute('data-color');
+    var val = (pieData[it].getAttribute('data-value') / 100) * 360.0;
+    pieArray[it] = { value: val, color: col};
+    var temp1=pieData[it];
+    temp1.setAttribute('style','transform:rotate('+totalRot+'deg);'+
+    	'background:linear-gradient(to left,'+col+' 50%,transparent 50%);'/*+'z-index:'+z*/);
+    --z;
+    col = val < 180? 'white' : col;
+    if(val < 180){
+    	var temp2=auxPie[it];
+    	temp2.setAttribute('style','transform:rotate('+(-(180-val))+'deg);'
+    		+'background:linear-gradient(to right,white 50%,transparent 50%);z-index:1;');
+    }
+    totalRot+=val;
+    console.log(temp1)
+
+    
+}
+</script>
+</html>
